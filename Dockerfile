@@ -32,4 +32,4 @@ ENV GATEWAY_PORT=9000
 # Expose Ports
 EXPOSE 9000/tcp
 
-CMD juicefs format --storage $STORAGE --bucket $BUCKET --access-key $ACCESS_KEY --secret-key $SECRET_KEY redis://$REDIS_HOST:$REDIS_PORT $JSF_NAME;juicefs gateway redis://$REDIS_HOST:$REDIS_PORT localhost:$GATEWAY_PORT
+CMD juicefs format --storage $STORAGE --bucket $BUCKET --access-key $ACCESS_KEY --secret-key $SECRET_KEY redis://$REDIS_HOST:$REDIS_PORT $JSF_NAME;juicefs gateway redis://$REDIS_HOST:$REDIS_PORT 0.0.0.0:$GATEWAY_PORT
