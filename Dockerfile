@@ -18,4 +18,18 @@ RUN set -x && \
     cd .. && \
     rm -rf /juicefs
 
-CMD [ "juicefs" ]
+ENV MINIO_ROOT_USER=admin
+ENV MINIO_ROOT_PASSWORD=12345678
+ENV REDIS_HOST=localhost
+ENV REDIS_PORT=6379
+ENV STORAGE=webdav
+ENV STORAGE=bucket
+ENV ACCESS_KEY=accessKey
+ENV SECRET_KEY=secretKey
+ENV JSF_NAME=myjsf
+ENV GATEWAY_PORT=9000
+
+# Expose Ports
+EXPOSE 9000/tcp
+
+CMD juicefs format --storage $STORAGE --bucket $BUCKET --access-key $ACCESS_KEY --secret-key $SECRET_KEY redis://$REDIS_HOST:$REDIS_PORT $JSF_NAME;juicefs gateway redis://$REDIS_HOST:$REDIS_PORT localhost:$GATEWAY_PORT
