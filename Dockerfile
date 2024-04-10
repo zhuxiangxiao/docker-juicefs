@@ -23,13 +23,14 @@ ENV MINIO_ROOT_PASSWORD=12345678
 ENV REDIS_HOST=localhost
 ENV REDIS_PORT=6379
 ENV STORAGE=webdav
-ENV STORAGE=bucket
 ENV ACCESS_KEY=accessKey
 ENV SECRET_KEY=secretKey
 ENV JSF_NAME=myjsf
 ENV GATEWAY_PORT=9000
+ENV META_PASSWORD=mypassword
+ENV META_URL=postgres://user@192.168.1.6:5432/juicefs
 
 # Expose Ports
 EXPOSE 9000/tcp
 
-CMD juicefs format --storage $STORAGE --bucket $BUCKET --access-key $ACCESS_KEY --secret-key $SECRET_KEY redis://$REDIS_HOST:$REDIS_PORT $JSF_NAME;juicefs gateway redis://$REDIS_HOST:$REDIS_PORT 0.0.0.0:$GATEWAY_PORT
+CMD juicefs format --storage $STORAGE --bucket $BUCKET --access-key $ACCESS_KEY --secret-key $SECRET_KEY $META_URL $JSF_NAME;juicefs gateway $META_URL 0.0.0.0:$GATEWAY_PORT
